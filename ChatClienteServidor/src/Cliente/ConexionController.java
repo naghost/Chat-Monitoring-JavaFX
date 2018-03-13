@@ -36,7 +36,7 @@ public class ConexionController {
             if(mensaje.equals("DIE")){
                 JOptionPane.showMessageDialog(null, "Conexion no realizada: Nombre de usuario en uso");
             }else{
-                invocar(flujo_entrada);
+                invocar(flujo_entrada, flujo_salida);
             }
 
 
@@ -46,7 +46,7 @@ public class ConexionController {
 
     }
 
-    public void invocar(ObjectInputStream flujo_entrada){
+    public void invocar(ObjectInputStream flujo_entrada, ObjectOutputStream flujo_salida){
         Stage stage = null;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Chat.fxml"));
         Parent root1= null;
@@ -56,7 +56,7 @@ public class ConexionController {
             stage.setScene(new Scene(root1));
             stage.show();
             ChatController inicio = (ChatController) fxmlLoader.getController();
-            inicio.Conexion(conexion,flujo_entrada);
+            inicio.Conexion(conexion,flujo_entrada, flujo_salida);
             Stage st =(Stage)IP.getScene().getWindow();
             st.close();
         }catch (IOException e) {
