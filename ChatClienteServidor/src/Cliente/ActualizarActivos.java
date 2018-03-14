@@ -35,7 +35,6 @@ public class ActualizarActivos extends Thread {
                 for (int i = 0; i < nombres.size(); i++) {
                     UsuariosModel model = new UsuariosModel(nombres.get(i));
                     aux.add(model);
-                    System.out.println("hola");
                 }
                 this.tabla.getItems().clear();
                 lista = FXCollections.observableArrayList(aux);

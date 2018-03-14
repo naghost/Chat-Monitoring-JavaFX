@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import javax.swing.*;
 import java.io.*;
@@ -19,8 +20,10 @@ public class ConexionController {
     @FXML
     TextField Usuario;
     Socket conexion;
-    ObjectOutputStream flujo_salida;
-    ObjectInputStream flujo_entrada;
+    Socket conexionDatos;
+    DataOutputStream flujo_salida;
+    DataInputStream flujo_entrada;
+    ObjectInputStream flujo_entrada_objetos;
     @FXML
     public void conexion(){
 
@@ -28,16 +31,21 @@ public class ConexionController {
 
         try {
             this.conexion = new Socket(IP.getText(), Integer.parseInt(Puerto.getText()));
-            flujo_salida = new ObjectOutputStream(conexion.getOutputStream());
+            flujo_salida = new DataOutputStream(conexion.getOutputStream());
             flujo_salida.writeUTF(Usuario.getText());
             flujo_salida.flush();
-            flujo_entrada = new ObjectInputStream(conexion.getInputStream());
+            flujo_entrada = new DataInputStream(conexion.getInputStream());
             String mensaje = flujo_entrada.readUTF();
             if(mensaje.equals("DIE")){
                 JOptionPane.showMessageDialog(null, "Conexion no realizada: Nombre de usuario en uso");
             }else{
-                invocar(flujo_entrada, flujo_salida);
+                int aux = Integer.parseInt(Puerto.getText());
+                aux++;
+                conexionDatos = new Socket(IP.getText(),aux);
+                flujo_entrada_objetos = new ObjectInputStream(conexionDatos.getInputStream());
+                invocar();
             }
+
 
 
         } catch (IOException e) {
@@ -46,7 +54,7 @@ public class ConexionController {
 
     }
 
-    public void invocar(ObjectInputStream flujo_entrada, ObjectOutputStream flujo_salida){
+    public void invocar(){
         Stage stage = null;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Chat.fxml"));
         Parent root1= null;
@@ -56,9 +64,22 @@ public class ConexionController {
             stage.setScene(new Scene(root1));
             stage.show();
             ChatController inicio = (ChatController) fxmlLoader.getController();
-            inicio.Conexion(conexion,flujo_entrada, flujo_salida);
+            inicio.Conexion(conexion,flujo_entrada, flujo_salida, flujo_entrada_objetos, Usuario.getText());
+
+            stage.setOnCloseRequest((WindowEvent event1) -> {
+                try {
+                    flujo_salida.writeUTF("Disconnect//"+Usuario.getText());
+                    flujo_salida.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }finally {
+                    System.exit(0);
+                }
+
+            });
             Stage st =(Stage)IP.getScene().getWindow();
             st.close();
+
         }catch (IOException e) {
             e.printStackTrace();
         }

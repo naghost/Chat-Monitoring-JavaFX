@@ -25,7 +25,7 @@ public class EnvioActivos extends Thread {
                 posiciones=nombre.size();
                 for (int i = 0; i<nombre.size();i++){
                     try {
-                        msgToServer =lista.get(i).getFlujo_salida();
+                       msgToServer =lista.get(i).getFlujo_salida_informacion();
                         msgToServer.writeObject(nombre);
                         msgToServer.flush();
                         msgToServer.reset();

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class EscuchaPeticiones extends Thread {
     ServerSocket escuchar;
+    ServerSocket Informacion;
     Boolean salir = false;
     ArrayList <ClienteModel> clientes;
     ArrayList<String> usuarios = new ArrayList<>();
@@ -25,8 +26,8 @@ public class EscuchaPeticiones extends Thread {
             try {
 
                 socket = escuchar.accept();
-                ObjectOutputStream flujo_salida=new ObjectOutputStream(socket.getOutputStream());
-                ObjectInputStream flujo_entrada = new ObjectInputStream(socket.getInputStream());
+                DataOutputStream flujo_salida=new DataOutputStream(socket.getOutputStream());
+                DataInputStream flujo_entrada = new DataInputStream(socket.getInputStream());
 
 
 
@@ -51,7 +52,9 @@ public class EscuchaPeticiones extends Thread {
                     flujo_salida.writeUTF("OK");
                     flujo_salida.flush();
                     monitor.escribirLog(0,"Servidor");
-                    cliente = new ClienteModel(socket, identificador,clientes,monitor,usuarios,flujo_entrada,flujo_salida);
+                    Socket info = Informacion.accept();
+                    ObjectOutputStream flujo_salida_informacion =new ObjectOutputStream(info.getOutputStream());
+                    cliente = new ClienteModel(socket, identificador,clientes,monitor,usuarios,flujo_entrada,flujo_salida, flujo_salida_informacion);
                     cliente.start();
                     clientes.add(cliente);
                     usuarios.add(identificador);
@@ -73,6 +76,8 @@ public class EscuchaPeticiones extends Thread {
     public EscuchaPeticiones(int puerto, ArrayList <ClienteModel> clientes){
         try {
             this.escuchar = new ServerSocket(puerto);
+            puerto++;
+            this.Informacion= new ServerSocket(puerto);
             this.clientes = clientes;
         } catch (IOException e) {
             e.printStackTrace();
