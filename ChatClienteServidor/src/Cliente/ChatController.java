@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Miguel Angel Hernandez Rodriguez
  * @version 1.0
  * Clase encargada de gestionar la ventanda principal del chat
- * */
+ */
 
 public class ChatController {
     @FXML
@@ -34,6 +34,13 @@ public class ChatController {
 
     MonitorLog mon;
     String usuario;
+    /*
+     *
+     * @author Miguel Angel Hernandez Rodriguez
+     * @version 1.0
+     * metodo que se encarga de controlar que no muestra ninguna tab de mas
+     */
+
     @FXML
     public void crearTab() {
 
@@ -63,6 +70,16 @@ public class ChatController {
             }
 
     }
+    /*
+     * @author Miguel Angel Hernandez Rodriguez
+     * @version 1.0
+     * Constructor, recibe datos de flujo y nombre de usuario
+     * @param conexion Socket para realizar la conexion
+     * @param flujo_entrada objeto encargado de datos
+     * @param flujo_salida objeto encargado del envio de datos
+     * @param flujo_entrada_objetos encargado de recibir las actualizaciones de usuarios
+     * @param usuario String con el usuario que inicia el programa
+     * */
     public void Conexion(Socket conexion, DataInputStream flujo_entrada, DataOutputStream flujo_salida, ObjectInputStream flujo_entrada_objetos, String usuario){
         this.conexion = conexion;
         this.flujo_entrada=flujo_entrada;
@@ -75,6 +92,11 @@ public class ChatController {
         EscuchadorClientes escuchar = new EscuchadorClientes(flujo_entrada, clientes,tabPane,flujo_salida,mon, this);
         escuchar.start();
     }
+
+    /**
+     * Zona de getters y setters
+     *
+     */
 
     public void añadirTab(Tab tab){
         tabPane.getTabs().add(tab);

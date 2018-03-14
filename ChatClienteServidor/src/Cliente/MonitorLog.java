@@ -9,12 +9,24 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/*
+ * @author Miguel Angel Hernandez Rodriguez
+ * @version 1.0
+ * Clase encargada de gestionar la escritura de datos en el archivo de log
+ * */
+
 public class MonitorLog {
     Boolean ocupado = false;
     FileWriter fichero = null;
     String [] Mensajes;
     String archivo;
     PrintWriter pw = null;
+    /*
+     * @author Miguel Angel Hernandez Rodriguez
+     * @version 1.0
+     * Constructor crea el archivo en el que se va a escribir
+     * @param usuario nombre del usuario que ejecuta el programa
+     * */
     public MonitorLog(String usuario){
 
         Date fechaActual = new Date();
@@ -30,6 +42,14 @@ public class MonitorLog {
             e.printStackTrace();
         }
     }
+
+    /*
+     * @author Miguel Angel Hernandez Rodriguez
+     * @version 1.0
+     * metodo encargado de escribir en el log
+     * @param mensaje indice del mensaje que se va a mostrar
+     * @param identificador nombre de quien escribe el mensaje
+     * */
 
     public synchronized  void escribirLog(int mensaje, String identificador){
         while (ocupado){

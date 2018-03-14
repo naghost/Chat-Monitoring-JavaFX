@@ -5,7 +5,11 @@ import javafx.scene.control.TextArea;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-
+/*
+ * @author Miguel Angel Hernandez Rodriguez
+ * @version 1.0
+ * Clase encargada de la gestion de cada TAB de el chat
+ * */
 public class PestañaController {
     String nombreUSR;
     String nombre;
@@ -20,11 +24,17 @@ public class PestañaController {
 
     MonitorLog mon;
 
+    /*
+     * @author Miguel Angel Hernandez Rodriguez
+     * @version 1.0
+     * Clase encargada de gestionar la ventanda principal del chat de enviar los datos recogidos de la interfaz
+     */
+
     @FXML
     public void enviarDatos(){
     String mensaje = nombreUSR+"//"+nombre+"//"+textArea.getText();
         try {
-            if(!mensaje.equals("")) {
+            if(!textArea.getText().equals("")) {
                 flujo_salida.writeUTF(mensaje);
                 flujo_salida.flush();
                 mon.escribirLog(1, nombreUSR);
@@ -36,6 +46,11 @@ public class PestañaController {
             e.printStackTrace();
         }
     }
+    /*
+     * @author Miguel Angel Hernandez Rodriguez
+     * @version 1.0
+     * Metodo que elimina el tab de la lista de controladores activos
+     * */
     @FXML
     public void eliminar(){
      for(int i = 0; i<listaControladores.size();i++){
@@ -44,7 +59,15 @@ public class PestañaController {
          }
      }
     }
-
+    /*
+     * @author Miguel Angel Hernandez Rodriguez
+     * @version 1.0
+     * Metodo que hace de constructor para recibir los datos
+     * @param flujo_salida objeto para enviar informacion a los usuarios
+     * @param listaControladores lista de los controladores activos
+     * @param mon monitor encargado de la escritura de los archivos de la interfaz
+     * @param NombreUSR variable que contiene el nombre del usuario actual
+     * */
     public void recibirDatos(DataOutputStream flujo_salida, ArrayList<PestañaController> listaControladores, MonitorLog mon, String NombreUSR){
         this.flujo_salida=flujo_salida;
         this.listaControladores = listaControladores;
@@ -52,6 +75,11 @@ public class PestañaController {
         this.nombreUSR = NombreUSR;
     }
 
+    /*
+     * @author Miguel Angel Hernandez Rodriguez
+     * @version 1.0
+     * Zona de getters y setters
+     * */
 
     public String getNombre() {
         return nombre;

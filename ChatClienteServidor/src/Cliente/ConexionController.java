@@ -10,7 +10,11 @@ import javafx.stage.WindowEvent;
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
-
+/*
+ * @author Miguel Angel Hernandez Rodriguez
+ * @version 1.0
+ * Clase encargada de realizar la conexion con el servidor y realizar el registro en el servidor
+ * */
 public class ConexionController {
     @FXML
     TextField IP;
@@ -23,11 +27,14 @@ public class ConexionController {
     DataOutputStream flujo_salida;
     DataInputStream flujo_entrada;
     ObjectInputStream flujo_entrada_objetos;
+
+    /*
+     * @author Miguel Angel Hernandez Rodriguez
+     * @version 1.0
+     * metodo que ejecuta la conexion con el servidor
+     */
     @FXML
     public void conexion(){
-
-
-
         try {
             this.conexion = new Socket(IP.getText(), Integer.parseInt(Puerto.getText()));
             flujo_salida = new DataOutputStream(conexion.getOutputStream());
@@ -44,14 +51,17 @@ public class ConexionController {
                 flujo_entrada_objetos = new ObjectInputStream(conexionDatos.getInputStream());
                 invocar();
             }
-
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
+
+    /*
+     * @author Miguel Angel Hernandez Rodriguez
+     * @version 1.0
+     * se encarga de crear la interfaz y mandarle los datos para poder ejecutarla
+     */
 
     public void invocar(){
         Stage stage = null;
@@ -62,9 +72,9 @@ public class ConexionController {
             stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.show();
+            stage.setTitle("MiguelZon Chat - "+Usuario.getText());
             ChatController inicio = (ChatController) fxmlLoader.getController();
             inicio.Conexion(conexion,flujo_entrada, flujo_salida, flujo_entrada_objetos, Usuario.getText());
-
             stage.setOnCloseRequest((WindowEvent event1) -> {
                 try {
                     flujo_salida.writeUTF("Disconnect//"+Usuario.getText());
@@ -74,11 +84,9 @@ public class ConexionController {
                 }finally {
                     System.exit(0);
                 }
-
             });
             Stage st =(Stage)IP.getScene().getWindow();
             st.close();
-
         }catch (IOException e) {
             e.printStackTrace();
         }

@@ -16,8 +16,8 @@ public class Controller {
 
     @FXML
     public void lanzarServidor(){
-    cerrarVentana();
-    Servidor s = new Servidor();
+        cerrarVentana();
+        Servidor s = new Servidor();
     }
     @FXML
     public void lanzarUsuario(){
