@@ -1,4 +1,4 @@
-package sample;
+package Inicio;
 
 import Servidor.Servidor;
 import javafx.fxml.FXML;

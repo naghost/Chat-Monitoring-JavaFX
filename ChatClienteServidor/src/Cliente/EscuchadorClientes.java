@@ -2,15 +2,11 @@ package Cliente;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-
-import javax.xml.crypto.Data;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 public class EscuchadorClientes extends Thread {
@@ -37,7 +33,9 @@ public class EscuchadorClientes extends Thread {
         while (!salir){
             try {
                 String mensaje = flujo_entrada.readUTF();
+
                 String mensajeAnalizado[]= mensaje.split("//");
+                mon.escribirLog(2,mensajeAnalizado[1]);
                 boolean existe = false;
                 for (int i=0; i<listaControladores.size();i++){
                     if (listaControladores.get(i).nombre.equals(mensajeAnalizado[0])){

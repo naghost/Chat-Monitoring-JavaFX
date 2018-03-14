@@ -16,7 +16,7 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <TableView fx:id="tabla" onMouseClicked="#crearTab" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tabla" onMouseClicked="#crearTab" prefHeight="200.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
         <columns>
           <TableColumn fx:id="column" prefWidth="75.0" text="Usuarios activos" />
         </columns>
@@ -24,6 +24,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+      <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
    </children>
 </GridPane>

@@ -2,7 +2,6 @@ package Cliente;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +27,7 @@ public class PestañaController {
             if(!mensaje.equals("")) {
                 flujo_salida.writeUTF(mensaje);
                 flujo_salida.flush();
+                mon.escribirLog(1, nombreUSR);
                 String aux = "YO: "+textArea.getText();
                 textAreaRecibir.setText(textAreaRecibir.getText()+"\n"+aux);
                 textArea.setText("");

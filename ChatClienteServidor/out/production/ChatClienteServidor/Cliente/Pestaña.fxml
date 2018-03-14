@@ -6,29 +6,38 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <Tab onCloseRequest="#eliminar" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cliente.PestañaController">
    <content>
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0">
          <children>
-            <TextArea fx:id="textAreaRecibir" editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <padding>
-                  <Insets left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </TextArea>
-            <HBox layoutY="480.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
+            <VBox>
                <children>
-                  <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" />
-                     </HBox.margin>
+                  <TextArea fx:id="textAreaRecibir" editable="false" prefHeight="200.0" prefWidth="200.0" wrapText="true">
+                     <padding>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="Arial" size="16.0" />
+                     </font>
                   </TextArea>
-                  <Button mnemonicParsing="false" onMouseClicked="#enviarDatos" prefHeight="61.0" prefWidth="52.0" text="Button" />
+                  <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                     <children>
+                        <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </TextArea>
+                        <Button mnemonicParsing="false" onMouseClicked="#enviarDatos" prefHeight="61.0" prefWidth="52.0" text="Button" />
+                     </children>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
+                  </HBox>
                </children>
-               <padding>
-                  <Insets right="10.0" />
-               </padding>
-            </HBox>
+            </VBox>
          </children>
       </AnchorPane>
    </content>

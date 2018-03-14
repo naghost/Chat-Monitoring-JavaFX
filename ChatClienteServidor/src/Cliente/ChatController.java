@@ -3,11 +3,15 @@ package Cliente;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+
+/*
+ * @author Miguel Angel Hernandez Rodriguez
+ * @version 1.0
+ * Clase encargada de gestionar la ventanda principal del chat
+ * */
 
 public class ChatController {
     @FXML
@@ -28,7 +32,7 @@ public class ChatController {
 
     ArrayList<PestañaController> clientes = new ArrayList<>();
 
-    MonitorLog mon = new MonitorLog();
+    MonitorLog mon;
     String usuario;
     @FXML
     public void crearTab() {
@@ -65,8 +69,8 @@ public class ChatController {
         this.flujo_salida=flujo_salida;
         this.flujo_entrada_objetos=flujo_entrada_objetos;
         this.usuario=usuario;
-
-        ActualizarActivos actualizar = new ActualizarActivos(tabla,column,conexionDatos,flujo_entrada_objetos);
+        mon = new MonitorLog(this.usuario);
+        ActualizarActivos actualizar = new ActualizarActivos(tabla,column,conexionDatos,flujo_entrada_objetos,mon);
         actualizar.start();
         EscuchadorClientes escuchar = new EscuchadorClientes(flujo_entrada, clientes,tabPane,flujo_salida,mon, this);
         escuchar.start();

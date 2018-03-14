@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <Tab onCloseRequest="#eliminar" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cliente.PestañaController">
    <content>
@@ -15,6 +16,9 @@
                <padding>
                   <Insets left="10.0" right="10.0" top="10.0" />
                </padding>
+               <font>
+                  <Font name="Arial" size="16.0" />
+               </font>
             </TextArea>
             <HBox layoutY="480.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="500.0">
                <children>

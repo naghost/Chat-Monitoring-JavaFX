@@ -4,6 +4,11 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/*
+ * @author Miguel Angel Hernandez Rodriguez
+ * @version 1.0
+ * Modelo del cliente se utliza para todas las acciones que realizara el cliente (Envio, recepcion de informacion y cerrar conexion)
+ * */
 public class ClienteModel extends Thread {
     Socket conexion;
     String identificador;
@@ -15,7 +20,14 @@ public class ClienteModel extends Thread {
     DataOutputStream flujo_salida;
     ObjectOutputStream flujo_salida_informacion;
 
-
+    /*
+     * @author Miguel Angel Hernandez Rodriguez
+     * @version 1.0
+     * metodo del hilo que siempre va a estar escuchando la informacion del usuario
+     * Detecta la entrada de mensajes, si es un mensaje normal lo enviara al destinatario
+     * Si es un mensaje de desconexion cerrara su socket y lo sacara de la lista
+     * @see enviarMensaje()
+     * */
     public void run() {
         super.run();
         while (!salir) {
@@ -66,6 +78,14 @@ public class ClienteModel extends Thread {
 
     }
 
+    /*
+     * @author Miguel Angel Hernandez Rodriguez
+     * @version 1.0
+     * Este metodo se encarga de enviar los mensajes al usuario del socket
+     * @see run()
+     * @param mensaje es una variable String que contiene el mensaje que el cliente va a recibir
+     * */
+
     public void enviarMensaje(String mensaje) {
         try {
             flujo_salida.writeUTF(mensaje);
@@ -76,6 +96,20 @@ public class ClienteModel extends Thread {
         }
     }
 
+    /*
+     * @author Miguel Angel Hernandez Rodriguez
+     * @version 1.0
+     * Constructor, recibe todos los datos para que el hilo pueda trabajar
+     *
+     * @param conexion es el socket que une el cliente con el servidor
+     * @param identificador nombre unico del cliente
+     * @param lista ArraList con todos los clientes
+     * @param monitor objeto monitor para hacer los registros en el log
+     * @param usuarios ArrayList con los nombres de usuario de cada cliente
+     * @param flujo_entrada con este objeto podremos escuchar mensajes
+     * @param flujo_salida con este objeto podremos enviar mensajes
+     * @param flujo_salida_informacion con este flujo de salida se utiliza para enviar el arraylist de los clientes conectados
+     * */
 
     public ClienteModel(Socket conexion, String identificador, ArrayList<ClienteModel> lista, MonitorLog monitor, ArrayList<String> usuarios, DataInputStream flujo_entrada, DataOutputStream flujo_salida, ObjectOutputStream flujo_salida_informacion) {
         this.conexion = conexion;
@@ -88,6 +122,11 @@ public class ClienteModel extends Thread {
         this.flujo_salida_informacion = flujo_salida_informacion;
     }
 
+    /*
+     * @author Miguel Angel Hernandez Rodriguez
+     * @version 1.0
+     * Zona Getters y Setters
+     * */
     public Socket getConexion() {
         return conexion;
     }
